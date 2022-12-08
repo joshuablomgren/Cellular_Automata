@@ -37,6 +37,7 @@ class CellularAutomata
         int init_cond(int x_state, double prob);              // Set the initial condition of the cellular automata model
         int init_cond_rewrite(int x_state, double prob);      // rewrite for other cell states (not just empty)
         int setup_rule(int rule_type);                        // Set the rule of the cellular automata model
+        int step();                                           // Step the cellular automata model
 
 
 };

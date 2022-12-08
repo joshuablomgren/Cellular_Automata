@@ -149,3 +149,152 @@ int CellularAutomata::setup_rule(int rule_type){
     rule = rule_type;
     return 0;
 }
+
+// Function: step
+// Perform one step of the cellular automata model
+// Input: None
+// Output: Updates the current grid
+// Return: 0: success
+//         -1: fail (invalid neighborhood type)
+//         -2: fail (invalid boundary type)
+
+int CellularAutomata::step(){
+    if (neigh_type == 1) {   // Von Neumann neighborhood
+        if (bound_type == 0) {   // No boundaries: assumes space is infinite
+            for (int i = 0; i < current_grid.size(); i++) {
+                for (int j = 0; j < current_grid[i].size(); j++) {
+                    int sum = 0;
+                    for (int k = -radius; k <= radius; k++) {
+                        for (int l = -radius; l <= radius; l++) {
+                            if (k != 0 || l != 0) {
+                                sum += current_grid[(i + k + current_grid.size()) % current_grid.size()][(j + l + current_grid[i].size()) % current_grid[i].size()];
+                            }
+                        }
+                    }
+                    if (rule == 1) {   // majority rule
+                        if (sum >= (2 * radius + 1) * (2 * radius + 1) / 2) {
+                            next_grid[i][j] = 1;
+                        } else {
+                            next_grid[i][j] = 0;
+                        }
+                    }
+                }
+            }
+        } else if (bound_type == 1) {   // periodic boundary: wrap around
+            for (int i = 0; i < current_grid.size(); i++) {
+                for (int j = 0; j < current_grid[i].size(); j++) {
+                    int sum = 0;
+                    for (int k = -radius; k <= radius; k++) {
+                        for (int l = -radius; l <= radius; l++) {
+                            if (k != 0 || l != 0) {
+                                sum += current_grid[(i + k + current_grid.size()) % current_grid.size()][(j + l + current_grid[i].size()) % current_grid[i].size()];
+                            }
+                        }
+                    }
+                    if (rule == 1) {   // majority rule
+                        if (sum >= (2 * radius + 1) * (2 * radius + 1) / 2) {
+                            next_grid[i][j] = 1;
+                        } else {
+                            next_grid[i][j] = 0;
+                        }
+                    }
+                }
+            }
+        } else if (bound_type == 2) {   // fixed boundary
+            for (int i = 0; i < current_grid.size(); i++) {
+                for (int j = 0; j < current_grid[i].size(); j++) {
+                    int sum = 0;
+                    for (int k = -radius; k <= radius; k++) {
+                        for (int l = -radius; l <= radius; l++) {
+                            if (k != 0 || l != 0) {
+                                if (i + k >= 0 && i + k < current_grid.size() && j + l >= 0 && j + l < current_grid[i].size()) {
+                                    sum += current_grid[i + k][j + l];
+                                }
+                            }
+                        }
+                    }
+                    if (rule == 1) {   // majority rule
+                        if (sum >= (2 * radius + 1) * (2 * radius + 1) / 2) {
+                            next_grid[i][j] = 1;
+                        } else {
+                            next_grid[i][j] = 0;
+                        }
+                    }
+                }
+            }
+        } else {
+            return -2;   // Error: invalid boundary type
+        }
+    } else if (neigh_type == 2) {   // Moore neighborhood
+        if (bound_type == 0) {   // No boundaries
+            for (int i = 0; i < current_grid.size(); i++) {
+                for (int j = 0; j < current_grid[i].size(); j++) {
+                    int sum = 0;
+                    for (int k = -radius; k <= radius; k++) {
+                        for (int l = -radius; l <= radius; l++) {
+                            sum += current_grid[(i + k + current_grid.size()) % current_grid.size()][(j + l + current_grid[i].size()) % current_grid[i].size()];
+                        }
+                    }
+                    if (rule == 1) {   // majority rule
+                        if (sum >= (2 * radius + 1) * (2 * radius + 1) / 2) {
+                            next_grid[i][j] = 1;
+                        } else {
+                            next_grid[i][j] = 0;
+                        }
+                    }
+                }
+            }
+        } else if (bound_type == 1) {   // periodic boundary
+            for (int i = 0; i < current_grid.size(); i++) {
+                for (int j = 0; j < current_grid[i].size(); j++) {
+                    int sum = 0;
+                    for (int k = -radius; k <= radius; k++) {
+                        for (int l = -radius; l <= radius; l++) {
+                            sum += current_grid[(i + k + current_grid.size()) % current_grid.size()][(j + l + current_grid[i].size()) % current_grid[i].size()];
+                        }
+                    }
+                    if (rule == 1) {   // majority rule
+                        if (sum >= (2 * radius + 1) * (2 * radius + 1) / 2) {
+                            next_grid[i][j] = 1;
+                        } else {
+                            next_grid[i][j] = 0;
+                        }
+                    }
+                }
+            }
+        } else if (bound_type == 2) {   // fixed boundary
+            for (int i = 0; i < current_grid.size(); i++) {
+                for (int j = 0; j < current_grid[i].size(); j++) {
+                    int sum = 0;
+                    for (int k = -radius; k <= radius; k++) {
+                        for (int l = -radius; l <= radius; l++) {
+                            if (i + k >= 0 && i + k < current_grid.size() && j + l >= 0 && j + l < current_grid[i].size()) {
+                                sum += current_grid[i + k][j + l];
+                            }
+                        }
+                    }
+                    if (rule == 1) {   // majority rule
+                        if (sum >= (2 * radius + 1) * (2 * radius + 1) / 2) {
+                            next_grid[i][j] = 1;
+                        } else {
+                            next_grid[i][j] = 0;
+                        }
+                    }
+                }
+            }
+        } else {
+            return -2;   // Error: invalid boundary type
+        }
+    } else {
+        return -1;   // Error: invalid neighborhood type
+    }
+    return 0;
+}
+                    
+
+    
+
+    
+            
+
+
