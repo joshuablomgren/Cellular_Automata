@@ -7,6 +7,8 @@
 //  datatypes.h  Contains the C++ Class definitions for the
 //               Cellular Automata Model
 #include "datatypes.h"
+#include <fstream>     // use the STL file class for output files
+#include <iostream>    // use the STL input/output class for printing
 
 // Function: setup_dimension
 // Setup the dimensions of the cellular automata model
@@ -291,14 +293,28 @@ int CellularAutomata::step(){
     return 0;
 }
 
+//Function: Analyze the grid
+// Input: none
+// Output: 0 (success)
+//         -1 (fail)
+// Return: sum of all the states in the grid
+int CellularAutomata::analyze_grid(int *arr){
+    if(arr == NULL){
+        return -1;
+    }
+    for(int i = 0; i < current_grid.size(); i++){
+        for(int j = 0; j < current_grid[i].size(); j++){
+            arr[current_grid[i][j]]++;
+        }
+    }
+    return 0; 
+}
+
 // Function: Print the grid to the screen
 // Input: none
 // Output: none
 // Return: 0 (success)
 int CellularAutomata::print_grid() {
-    cout << "Current grid:" << endl;
-    cout << "-------------" << endl;
-    cout << "Grid size: " << current_grid.size() << " x " << current_grid[0].size() << endl;
     for (int i = 0; i < current_grid.size(); i++) {
         for (int j = 0; j < current_grid[i].size(); j++) {
             cout << current_grid[i][j] << " ";
@@ -313,19 +329,25 @@ int CellularAutomata::print_grid() {
 // Output: none
 // Return: 0 (success)
 //         -1 (fail)
-int CellularAutomata::print_grid(string filename) {
+int CellularAutomata::print_grid(string filename, int step) {
     ofstream outfile;
-    outfile.open(filename.c_str());
+    outfile.open(filename.c_str(), std::ios::app);
     if (outfile.is_open()) {
-        outfile << "Current grid:" << endl;
-        outfile << "-------------" << endl;
-        outfile << "Grid size: " << current_grid.size() << " x " << current_grid[0].size() << endl;
+        if (step != None) {
+            outfile << "Step " << step << endl;
+        }
         for (int i = 0; i < current_grid.size(); i++) {
             for (int j = 0; j < current_grid[i].size(); j++) {
                 outfile << current_grid[i][j] << " ";
             }
             outfile << endl;
         }
+        int arr* = new int[nstates] 
+        analyze_grid(arr);
+        for (int i = 0; i < nstates; i++){
+            outfile << "State " << i << " has " << arr[i] << " cells" << endl;
+        }
+        delete[] arr;
         outfile.close();
         return 0;
     } else {
@@ -346,10 +368,10 @@ int CellularAutomata::print_grid(string filename) {
 //         -2: fail (invalid boundary type)
 //         -3: fail (invalid neighborhood type)
 //         -4: fail (invalid filename)
-int CellularAutomata::run_sim(int steps, bool print_screen=true, bool print_file=false, string filename="none") {
+int CellularAutomata::run_sim(int steps, bool print_screen, bool print_file, string filename) {
     int err;   // error code    
 
-    if (steps < 0) {
+    if (steps <= 0) {
         cout << "Error: invalid number of steps" << endl;
         return (-1);   // Error: invalid number of steps
     }
@@ -357,6 +379,40 @@ int CellularAutomata::run_sim(int steps, bool print_screen=true, bool print_file
     if(print_file == true && filename == "none") {
         cout << "Error: invalid filename" << endl;
         return (-4);   // Error: invalid filename
+    }
+
+    //printing the header to the screen if print_screen is true
+    if (print_screen == true) {
+        cout << "Cellular Automata Specifications: " << endl;
+        cout << "Grid size: " << current_grid.size() << " x " << current_grid[0].size() << endl;
+        cout << "Number of states: " << nstates << endl;
+        cout << "Neighborhood type: " << neigh_type << endl;
+        cout << "Boundary type: " << bound_type << endl;
+        cout << "Rule: " << rule << endl;
+        cout << "Radius: " << radius << endl;
+        cout << "Number of steps: " << steps << endl;
+        cout << endl;
+    }
+
+    //printing the header to the file if print_file is true
+    if (print_file == true) {
+        ofstream outfile;
+        outfile.open(filename.c_str());
+        if (outfile.is_open()) {
+            outfile << "Cellular Automata Specifications: " << endl;
+            outfile << "Grid size: " << current_grid.size() << " x " << current_grid[0].size() << endl;
+            outfile << "Number of states: " << nstates << endl;
+            outfile << "Neighborhood type: " << neigh_type << endl;
+            outfile << "Boundary type: " << bound_type << endl;
+            outfile << "Rule: " << rule << endl;
+            outfile << "Radius: " << radius << endl;
+            outfile << "Number of steps: " << steps << endl;
+            outfile << endl;
+            outfile.close();
+        } else {
+            cout << "Error: unable to open file" << endl;
+            return (-4);   // Error: unable to open file
+        }
     }
 
     for (int i = 0; i < steps; i++) {
@@ -368,12 +424,20 @@ int CellularAutomata::run_sim(int steps, bool print_screen=true, bool print_file
             cout << "Error: invalid boundary type" << endl;
             return (-2);   // Error: invalid boundary type
         }
-        if (print_screen == true) {
-            print_grid();
-        }
-
-        if (print_file == true) {
-            print_grid(filename);
+        else if (err == 0){
+            cout << "Step " << i << " complete" << endl;
+            if (print_screen == true) {
+                print_grid();
+                int arr* = new int[nstates] 
+                analyze_grid(arr);
+                for (int i = 0; i < nstates; i++){
+                    cout << "State " << i << " has " << arr[i] << " cells" << endl;
+                }
+                delete[] arr;
+            }
+            if (print_file == true) {
+                print_grid(filename);
+            }
         }
     }
 

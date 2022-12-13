@@ -41,7 +41,8 @@ class CellularAutomata
         int setup_rule(int rule_type);                        // Set the rule of the cellular automata model
         int grid_size();   // Size of the grid
         int step();                                           // Step the cellular automata model
-        int run_sim(int nsteps, bool print=true, bool file=false, string filename="none");  // Run the cellular automata model
+        int run_sim(int nsteps, bool print, bool file, bool analyze, string filename);  // Run the cellular automata model
         int print_grid();                                     // Print the current grid
-        int print_grid(string filename);                        // Print the current grid to a file
+        int print_grid(string filename, int step); 
+        int analyze_grid(int *arr);                        // Print the summary of the current grid
 };
