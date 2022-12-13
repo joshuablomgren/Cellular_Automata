@@ -333,9 +333,7 @@ int CellularAutomata::print_grid(string filename, int step) {
     ofstream outfile;
     outfile.open(filename.c_str(), std::ios::app);
     if (outfile.is_open()) {
-        if (step != None) {
-            outfile << "Step " << step << endl;
-        }
+        outfile << "Step: " << i << endl;
         for (int i = 0; i < current_grid.size(); i++) {
             for (int j = 0; j < current_grid[i].size(); j++) {
                 outfile << current_grid[i][j] << " ";
@@ -443,10 +441,3 @@ int CellularAutomata::run_sim(int steps, bool print_screen, bool print_file, str
 
     return 0;
 }
-
-    
-
-    
-            
-
-
