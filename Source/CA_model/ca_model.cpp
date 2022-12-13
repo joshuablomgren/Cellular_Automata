@@ -328,13 +328,11 @@ int CellularAutomata::print_grid() {
 // Output: none
 // Return: 0 (success)
 //         -1 (fail)
-int CellularAutomata::print_grid(string filename, int step=None) {
+int CellularAutomata::print_grid(string filename, int step) {
     ofstream outfile;
     outfile.open(filename.c_str(), std::ios::app);
     if (outfile.is_open()) {
-        if (step != None) {
-            outfile << "Step " << step << endl;
-        }
+        outfile << "Step: " << i << endl;
         for (int i = 0; i < current_grid.size(); i++) {
             for (int j = 0; j < current_grid[i].size(); j++) {
                 outfile << current_grid[i][j] << " ";
@@ -367,7 +365,7 @@ int CellularAutomata::print_grid(string filename, int step=None) {
 //         -2: fail (invalid boundary type)
 //         -3: fail (invalid neighborhood type)
 //         -4: fail (invalid filename)
-int CellularAutomata::run_sim(int steps, bool print_screen=true, bool print_file=false, string filename="none") {
+int CellularAutomata::run_sim(int steps, bool print_screen, bool print_file, string filename) {
     int err;   // error code    
 
     if (steps < 0) {
