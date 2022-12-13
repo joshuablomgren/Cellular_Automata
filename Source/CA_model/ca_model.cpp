@@ -455,7 +455,6 @@ int CellularAutomata::step(){
     return 0;
 }
 
-
 //Function: Analyze the grid
 // Input: none
 // Output: 0 (success)
@@ -532,7 +531,7 @@ int CellularAutomata::print_grid(string filename, int step) {
 int CellularAutomata::run_sim(int steps, bool print_screen, bool print_file, string filename) {
     int err;   // error code    
 
-    if (steps < 0) {
+    if (steps <= 0) {
         cout << "Error: invalid number of steps" << endl;
         return (-1);   // Error: invalid number of steps
     }
