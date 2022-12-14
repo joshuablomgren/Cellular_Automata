@@ -27,7 +27,7 @@ CA_MODEL = ca_model.o
 
 #The object file for insertion sort. The file is saved in Libdir.
 ca_model.o:  $(INC_DIR)/datatypes.h
-	$(CPP) $(CPPFLAGS) ca_model.cpp -I$(INC_DIR) 
+	$(CPP) $(CPPFLAGS) ca_model_setup.cpp ca_model_steps.cpp ca_model_vis.cpp -I$(INC_DIR) 
 	mv ca_model.o $(LIB_DIR)
 
 

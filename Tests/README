@@ -1,0 +1,20 @@
+# Final Project: Cellular Automata Library
+## University of California, Berkeley
+## Chem 274B: Introduction to Software Engineering
+#
+## Creator: Charis Liao, Joshua Blomgren, Jeffy Jeffy
+## Date Created: December 2022
+## Directory Path: the-golden-gopher/Tests
+#
+
+This is the directory where all tests for the different C++ implementations of the CA model library are located. 
+
+This directory contains source C++ programs with a main function 
+inside them (i.e. they can be executed)
+
+Files: 
+    - README: This file which contains a general description of the project and the directory structure
+
+    - Makefile: Automation script for compiling the library and examples, and cleaning all the subdirectories
+
+    - sample_test.cpp: This is a test file that tests the functionality of the library

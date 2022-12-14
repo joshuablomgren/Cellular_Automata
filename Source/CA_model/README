@@ -1,0 +1,13 @@
+# Final Project: Cellular Automata Library
+## University of California, Berkeley
+## Chem 274B: Introduction to Software Engineering
+#
+## Creator: Joshua Blomgren, Jeffy Jeffy, Charis Liao
+## Date Created: December 2022
+## Directory Path: the-golden-gopher/
+#
+
+This is the main directory which contains the source code for the cellular automata library. The library is written in C++ and is designed to be used in conjunction with jupyter notebook locating in the Utils/Plots/ directory. There is an example model that uses the cellular automata library in the Examples/ directory.
+
+Object files made using the Makefile in this subdirectory will be located in the Libdir/ subdirectory
+after compilation.
