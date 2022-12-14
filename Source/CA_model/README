@@ -11,3 +11,10 @@ This is the main directory which contains the source code for the cellular autom
 
 Object files made using the Makefile in this subdirectory will be located in the Libdir/ subdirectory
 after compilation.
+
+Files: 
+    - README: This file which contains a general description of the project and the directory structure
+
+    - Makefile: Automation script for compiling the library and examples, and cleaning all the subdirectories
+
+    - 

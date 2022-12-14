@@ -48,7 +48,7 @@ int CellularAutomata::setup_dimension(int ndims, int dim1, int dim2){
         next_grid.push_back(grid1D);
         return 0;
     } else if (ndims == 2) {
-        vector<vector<int>> grid2D(dim1, vector<int>(dim2));   // 2D cellular automata (size dim1 x dim2)
+        vector<vector<int> > grid2D(dim1, vector<int>(dim2));   // 2D cellular automata (size dim1 x dim2)
         current_grid = grid2D;
         next_grid = grid2D;
         return 0;

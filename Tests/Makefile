@@ -31,7 +31,8 @@ EXECUTABLES: sample_test
 #The object file for insertion sort. The file is saved in Libdir.
 sample_test: $(INC_DIR)/datatypes.h 
 	$(CPP) $(CPPFLAGS) sample_test sample_test.cpp \
-	-I$(INC_DIR) $(LIB_DIR)/ca_model.o
+	-I$(INC_DIR) $(LIB_DIR)/ca_model_setup.o $(LIB_DIR)/ca_model_steps.o \
+	$(LIB_DIR)/ca_model_vis.o
 	mv sample_test $(BIN_DIR)
 
 all: $(EXECUTABLES)

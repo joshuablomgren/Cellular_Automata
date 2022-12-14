@@ -15,7 +15,7 @@ int main() {
     CA.setup_boundtype(0, 1);
     CA.setup_cell_states(2);
     CA.init_cond(1, 0.5);
-    CA.init_cond_rewrite(2, 0.6);
+    CA.init_cond_rewrite(1, 2, 0.6);
     CA.setup_rule(1);
     CA.run_sim(10, true, false, "none");
     return 0;
