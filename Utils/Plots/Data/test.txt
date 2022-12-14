@@ -1,0 +1,8 @@
+Cellular Automata Specifications:
+Grid size: 10 x 10 
+Number of states: 2
+Neighborhood type: 1
+Boundary type: 1
+Rule: 1
+Radius: 1
+Number of steps: 10 
