@@ -21,8 +21,7 @@ def visualize_grid(filename):
 
     print('Grid size: ', gridrow, gridcol)
     print('Steps: ', steps)
-
-    return 0 
+    return gridcol, gridrow, steps
 
 
 if __name__ == '__main__':

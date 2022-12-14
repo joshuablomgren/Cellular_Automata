@@ -358,6 +358,7 @@ int CellularAutomata::step(){
                     delete [] state_count;
                 }
             }
+            // older version
             // for (int i = 0; i < current_grid.size(); i++) {
             //     for (int j = 0; j < current_grid[i].size(); j++) {
             //         state = current_grid[i][j];

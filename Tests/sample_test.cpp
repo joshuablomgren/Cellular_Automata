@@ -19,4 +19,5 @@ int main() {
     CA.setup_rule(1);
     CA.run_sim(10, true, false, "none");
     return 0;
+    
 }
