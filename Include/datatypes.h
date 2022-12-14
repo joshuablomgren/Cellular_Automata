@@ -30,8 +30,8 @@ class CellularAutomata
         int dim1, dim2;  // Dimensions of the grid
         bool run_flag;   // Flag to indicate if the simulation is running
 
-        vector<vector<int>> current_grid;  // Current grid
-        vector<vector<int>> next_grid;     // Next grid
+        vector<vector<int> > current_grid;  // Current grid
+        vector<vector<int> > next_grid;     // Next grid
 
     public:
         CellularAutomata();                                   // Constructor
