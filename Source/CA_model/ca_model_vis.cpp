@@ -9,7 +9,7 @@
 //               Cellular Automata Model
 #include "datatypes.h"
 
-// Function: Analyze the grid
+//Function: Analyze the grid
 // Input: none
 // Output: 0 (success)
 //         -1 (fail)
@@ -64,6 +64,7 @@ int CellularAutomata::print_grid(string filename, int step) {
         for (int i = 0; i < nstates; i++){
             outfile << "State " << i << " has " << arr[i] << " cells" << endl;
         }
+        outfile <<" " << endl;
         delete[] arr;
         outfile.close();
         return 0;
@@ -142,15 +143,15 @@ int CellularAutomata::run_sim(int steps, bool print_screen, bool print_file, str
             return (-2);   // Error: invalid boundary type
         }
         else if (err == 0){
-            cout << "Step " << i << " complete" << endl;
-            cout << " " << endl;
             if (print_screen == true) {
+                cout << "Step: " << i << endl;
                 print_grid();
                 int *arr = new int[nstates]; 
                 analyze_grid(arr);
                 for (int i = 0; i < nstates; i++){
                     cout << "State " << i << " has " << arr[i] << " cells" << endl;
                 }
+                cout <<" " << endl;
                 delete[] arr;
             }
             if (print_file == true) {
@@ -158,6 +159,5 @@ int CellularAutomata::run_sim(int steps, bool print_screen, bool print_file, str
             }
         }
     }
-
     return 0;
 }
