@@ -25,9 +25,22 @@ LIB_DIR     = ../Libdir
 BIN_DIR     = ../Bindir
 
 # The next line contains the list of executable files that are created by the Makefile
-EXECUTABLES = sample_test
+EXECUTABLES = input_values_test init_cond_test sample_test
 
 #The object file for insertion sort. The file is saved in Libdir.
+
+input_values_test: $(INC_DIR)/datatypes.h $(INC_DIR)/random.h
+	$(CPP) $(CPPFLAGS) input_values_test input_values_test.cpp \
+	-I$(INC_DIR) $(LIB_DIR)/libca_model.a \
+	$(LIB_DIR)/randseed.o
+	mv input_values_test $(BIN_DIR)
+
+init_cond_test: $(INC_DIR)/datatypes.h $(INC_DIR)/random.h
+	$(CPP) $(CPPFLAGS) init_cond_test init_cond_test.cpp \
+	-I$(INC_DIR) $(LIB_DIR)/libca_model.a \
+	$(LIB_DIR)/randseed.o
+	mv init_cond_test $(BIN_DIR)
+
 sample_test: $(INC_DIR)/datatypes.h $(INC_DIR)/random.h
 	$(CPP) $(CPPFLAGS) sample_test sample_test.cpp \
 	-I$(INC_DIR) $(LIB_DIR)/libca_model.a \
