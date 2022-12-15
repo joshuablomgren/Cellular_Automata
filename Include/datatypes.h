@@ -11,8 +11,8 @@
 
 #include <vector>       // use the STL vector class for the grids
 #include <string>       // use the STL string class for filenames
-#include <fstream>     // use the STL file class for output files
-#include <iostream>    // use the STL input/output class for printing
+#include <fstream>      // use the STL file class for output files
+#include <iostream>     // use the STL input/output class for printing
 
 using namespace std;
 
@@ -32,18 +32,19 @@ class CellularAutomata
         vector<vector<int> > next_grid;     // Next grid
 
     public:
-        CellularAutomata();                                   // Constructor
-        ~CellularAutomata();                                  // Destructor
-        int setup_dimension(int ndims, int dim1, int dim2);   // Set the dimensions of the cellular automata model
-        int setup_neighborhood(int neighbor_type);            // Set the neighborhood of the cellular automata model
-        int setup_boundtype(int bound_type, int radius);      // Set the boundary type of the cellular automata model
-        int setup_cell_states(int nstates);                   // Set the number of states of the cellular automata model
-        int init_cond(int x_state, double prob);              // Set the initial condition of the cellular automata model
-        int init_cond_rewrite(int x_state, int y_state, double prob);      // rewrite for other cell states (not just empty)
-        int setup_rule(int rule_type);                        // Set the rule of the cellular automata model
-        int step();                                           // Step the cellular automata model
-        int run_sim(int steps, bool print, bool file, string filename);  // Run the cellular automata model
-        int print_grid();                                     // Print the current grid
-        int print_grid(string filename, int step);                        // Print the current grid to a file
-        int analyze_grid(int *arr);                             // Analyze the current grid
+        CellularAutomata();                                             // Constructor
+        ~CellularAutomata();                                            // Destructor
+        int setup_dimension(int ndims, int dim1, int dim2);             // Set the dimensions of the cellular automata model
+        int setup_neighborhood(int neighbor_type);                      // Set the neighborhood of the cellular automata model
+        int setup_boundtype(int bound_type, int radius);                // Set the boundary type of the cellular automata model
+        int setup_cell_states(int nstates);                             // Set the number of states of the cellular automata model
+        int init_cond(int x_state, double prob);                        // Set the initial condition of the cellular automata model
+        int init_cond_rewrite(int x_state, int y_state, double prob);   // rewrite for other cell states (not just empty)
+        int setup_rule(int rule_type);                                  // Set the rule of the cellular automata model
+        void print_setup_info();                                        // Print the setup information of the cellular automata model
+        int step();                                                     // Step the cellular automata model
+        int run_sim(int steps, bool print, bool file, string filename); // Run the cellular automata model
+        int print_grid();                                               // Print the current grid
+        int print_grid(string filename, int step);                      // Print the current grid to a file
+        int analyze_grid(int *arr);                                     // Analyze the current grid
 };

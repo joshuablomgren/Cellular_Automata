@@ -18,3 +18,10 @@ Files:
     - Makefile: Automation script for compiling the library and examples, and cleaning all the subdirectories
 
     - sample_test.cpp: This is a test file that tests the functionality of the library
+
+    - input_values_test.cpp: This is a test file that tests the functionality of the CellularAutomata
+    class setup methods 
+
+    - init_cond_test.cpp: This is a test file that tests the functionality of the init_cond method that 
+    initializes the initial conditions of the CA model as well as the init_cond_rewrite method that
+    initializes another condition of the CA model 

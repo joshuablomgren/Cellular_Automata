@@ -17,8 +17,8 @@ CellularAutomata::CellularAutomata(){
     neigh_type = 1;  // Von Neumann neighborhood
     bound_type = 0;  // No boundaries
     radius = 1;      // Radius of the neighborhood
-    nstates = 2;     // Number of states
-    rule = 0;        // Rule
+    nstates = 0;     // Number of states
+    rule = 1;        // Rule: majority rule
     dim1 = 0;        // Dimension 1
     dim2 = 0;        // Dimension 2
     run_flag = false;  // Simulation is not running
@@ -40,19 +40,23 @@ CellularAutomata::~CellularAutomata(){
 // Return: 0: success
 //         -1: fail: invalid number of dimensions
 //         -10: fail: simulation is already running, cannot change dimensions
-int CellularAutomata::setup_dimension(int ndims, int dim1, int dim2){
+int CellularAutomata::setup_dimension(int ndims, int dimension1, int dimension2){
     if (run_flag == true) {
         return -10;   // Error: simulation is already running, cannot change dimensions
     }
     if (ndims == 1) {
-        vector<int> grid1D(dim1);       // 1D cellular automata (size dim1)
-        current_grid.push_back(grid1D); 
-        next_grid.push_back(grid1D);
+        vector<int> grid1D(dimension1);       // 1D cellular automata (size dim1)
+        current_grid.push_back(grid1D);       // Add a row to the grids
+        next_grid.push_back(grid1D);         
+        dim1 = dimension1;
+        dim2 = 1;
         return 0;
     } else if (ndims == 2) {
-        vector<vector<int> > grid2D(dim1, vector<int>(dim2));   // 2D cellular automata (size dim1 x dim2)
-        current_grid = grid2D;
+        vector<vector<int> > grid2D(dimension1, vector<int>(dimension2));   // 2D cellular automata (size dim1 x dim2)
+        current_grid = grid2D;          
         next_grid = grid2D;
+        dim1 = dimension1;
+        dim2 = dimension2;
         return 0;
     } else {
         return -1;   // Error: invalid number of dimensions
@@ -85,6 +89,7 @@ int CellularAutomata::setup_neighborhood(int neighbor_type){
 // Output: Updates the radius of the neighborhood and the boundary type
 // Return: 0: success
 //         -1: fail (invalid boundary type)
+//         -2: fail (invalid radius)
 //         -10: fail (invalid radius)
 int CellularAutomata::setup_boundtype(int b_type, int rad){
     if (run_flag == true) {
@@ -163,9 +168,9 @@ int CellularAutomata::init_cond(int x_state, double prob){
 
 // Function: init_cond_rewrite
 // Rewrite an additional configuration of the cellular automata model given a state. 
-// Input: x_state: the initial state of a cell to be rewritten
+// Input: x_state: the initial state of a cell to rewrite
 //        y_state: the potential new state of a cell
-//        prob: probability of a cell entering the next state  
+//        prob: probability of a cell entering the new state  
 // Output: Updates the current grid
 // Return: 0: success
 //         -1: fail (invalid state)
@@ -179,7 +184,7 @@ int CellularAutomata::init_cond_rewrite(int x_state, int y_state, double prob){
         return -10;   // Error: simulation is already running, cannot change initial condition
     }
     if (current_grid.size() == 0) {
-        return -5;   // Error: no grid is set up (call setup_dimension() first
+        return -5;   // Error: no grid is set up (call setup_dimension()) first
     }
     if (x_state < 0 || x_state > nstates) {
         return -1;   // Error: invalid state
@@ -195,9 +200,9 @@ int CellularAutomata::init_cond_rewrite(int x_state, int y_state, double prob){
 
     for (int i = 0; i < current_grid.size(); i++) {
         for (int j = 0; j < current_grid[i].size(); j++) {
-            if (current_grid[i][j] == (x_state - 1)) {
+            if (current_grid[i][j] == (x_state)) {
                 if (((double) rand() / RAND_MAX) < prob) {    // generate random number between 0 and 1
-                    current_grid[i][j] = x_state;    // set the cell to state x_state
+                    current_grid[i][j] = y_state;    // set the cell to state x_state
                 }
             }
         }
@@ -215,9 +220,37 @@ int CellularAutomata::setup_rule(int rule_type){
     if (run_flag == true) {
         return -10;   // Error: simulation is already running, cannot change rule
     }
-    if (rule_type != 1 || rule_type != 2) {
+    if (rule_type != 1 && rule_type != 2) {
         return -1;   // Error: invalid rule
     }
     rule = rule_type;
     return 0;
+}
+
+// Function: print_setup_info
+// Print the setup information of the cellular automata model given user input
+// Input: None
+// Output: Print the setup information
+void CellularAutomata::print_setup_info(){
+    cout << "Setup information:" << endl;
+    cout << "Grid dimension: " << dim1 << " x " << dim2 <<endl;
+    cout << "Number of states: " << nstates << endl;
+    
+    if (bound_type == 0){
+        cout << "Boundary type: " << "No boundaries" << endl;
+    } else if (bound_type == 1){
+        cout << "Boundary type: " << "Periodic" << endl;
+    } else if (bound_type == 2){
+        cout << "Boundary type: " << "Fixed" << endl;
+    } else if (bound_type == 3){
+        cout << "Boundary type: " << "Cut-off" << endl;
+    }
+    cout << "Radius: " << radius << endl;
+
+    if (neigh_type == 1){
+        cout << "Neighbourhood type: " << "Von Neumann" << endl;
+    } else if (neigh_type == 2){
+        cout << "Neighbourhood type: " << "Moore" << endl;
+    }
+    cout << "Rule: " << rule << endl;
 }
