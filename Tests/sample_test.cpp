@@ -17,7 +17,7 @@ int main() {
     CA.init_cond(1, 0.5);
     CA.init_cond_rewrite(1, 2, 0.6);
     CA.setup_rule(1);
-    CA.run_sim(10, true, false, "none");
+    CA.run_sim(10, true, true, "test.txt");
     return 0;
     
 }
