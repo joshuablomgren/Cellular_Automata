@@ -17,30 +17,28 @@
 //         -1: fail (invalid neighborhood type)
 //         -2: fail (invalid boundary type)
 int CellularAutomata::step(){
-    int state;
-    int next_state = state++; // next state of the cell
-    int neighbor_count;  // counting total neighbors 
+    int *state_count = new int[nstates];     // counting neighbors in each state
+    int neighbor_count = 0;  // counting total neighbors 
     double majority; // majority of neighbors in a certain state
     int count; // counting neighbors in a certain state
+    next_grid = current_grid;   // initialize next_grid to current_grid
 
     if (neigh_type == 1) {   // Von Neumann neighborhood
         
         if (bound_type == 0) {   // No boundaries: assumes space is infinite
             for (int i = 0; i < current_grid.size(); i++) {
                 for (int j = 0; j < current_grid[i].size(); j++) {
-                    
-                    state = current_grid[i][j];
-                    if (state == nstates) {
-                        state = 0;
-                    } else if (state != nstates) {
+
+                    if (rule == 1) {    //majority rule 
+                        for(int s = 0; s < nstates; s++) {  // initialize state_count
+                        state_count[s] = 0;
+                        }
                         for (int k = - radius; k<=radius;k++){
                             if (k == 0) {
                                 continue;
                             }
                             auto x = (i + k + current_grid.size()) % current_grid.size();
-                            if (current_grid[x][j] == next_state) {
-                                count++;
-                            }
+                            state_count[current_grid[x][j]]++;
                             neighbor_count++;
                         }
                         for (int k = - radius; k<=radius;k++){
@@ -48,38 +46,42 @@ int CellularAutomata::step(){
                                 continue;
                             }
                             auto y = (j + k + current_grid.size()) % current_grid.size();
-                            if (current_grid[i][y] == next_state) {
-                                count++;
-                            }
+                            state_count[current_grid[i][y]]++;
                             neighbor_count++;
                         }
-                        majority = (double) count/neighbor_count;
-                        if (rule == 1) {   // majority rule 
-                            if (majority >= 0.5) { // majority of neighbors are in state 1
-                                state++;
+                        int max_idx;
+                        int max_count = 0;
+                        for (int s = 0; s < nstates; s++) {
+                            if (state_count[s] > max_count) {
+                                max_count = state_count[s];
+                                max_idx = s;
                             }
                         }
+                        majority = (double) max_count/neighbor_count;
+                        if (majority >= 0.5) { 
+                            next_grid[i][j] = max_idx;
+                        }
                     }
-                    next_grid[i][j] = state;
+                    delete [] state_count;
                 }
             }
             current_grid = next_grid;
+            next_grid = current_grid;
+
         } else if (bound_type == 1) {   // periodic boundary: wrap around
             for (int i = 0; i < current_grid.size(); i++) {
                 for (int j = 0; j < current_grid[i].size(); j++) {
                     
-                    state = current_grid[i][j];
-                    if (state == nstates) {
-                        state = 0;
-                    } else if (state != nstates) {
+                    if (rule == 1) {    //majority rule 
+                        for(int s = 0; s < nstates; s++) {  // initialize state_count
+                        state_count[s] = 0;
+                        }
                         for (int k = - radius; k<=radius;k++){
                             if (k == 0) {
                                 continue;
                             }
                             auto x = (i + k + current_grid.size()) % current_grid.size();
-                            if (current_grid[x][j] == next_state) {
-                                count++;
-                            }
+                            state_count[current_grid[x][j]]++;
                             neighbor_count++;
                         }
                         for (int k = - radius; k<=radius;k++){
@@ -87,116 +89,123 @@ int CellularAutomata::step(){
                                 continue;
                             }
                             auto y = (j + k + current_grid.size()) % current_grid.size();
-                            if (current_grid[i][y] == next_state) {
-                                count++;
-                            }
+                            state_count[current_grid[i][y]]++;
                             neighbor_count++;
                         }
-                        majority = (double) count/neighbor_count;
-                        if (rule == 1) {   // majority rule 
-                            if (majority >= 0.5) { // majority of neighbors are in state 1
-                                state++;
+                        int max_idx;
+                        int max_count = 0;
+                        for (int s = 0; s < nstates; s++) {
+                            if (state_count[s] > max_count) {
+                                max_count = state_count[s];
+                                max_idx = s;
                             }
                         }
+                        majority = (double) max_count/neighbor_count;
+                        if (majority >= 0.5) { 
+                            next_grid[i][j] = max_idx;
+                        }
                     }
-                    next_grid[i][j] = state;
+                    delete [] state_count;
                 }
             }
             current_grid = next_grid;
+            next_grid = current_grid;
         } else if (bound_type == 2) {   // fixed boundary
             for (int i = 1; i < current_grid.size(); i++) {
                 for (int j = 1; j < current_grid[i].size(); j++) {
                     
-                    state = current_grid[i][j];
-                    if (state == nstates) {
-                        state = 0;
-                    } else if (state != nstates) {
-                        for (int k = - radius; k<=radius;k++){
-                            if (k == 0) {
-                                continue;
-                            }
-                            if (i + k >= 0 && i + k < current_grid.size()) {
-                                if (current_grid[i + k][j] == next_state) {
-                                    count++;
-                                }
-                                neighbor_count++;
-                            }
+                    if (rule == 1) {    //majority rule 
+                        for(int s = 0; s < nstates; s++) {  // initialize state_count
+                        state_count[s] = 0;
                         }
                         for (int k = - radius; k<=radius;k++){
                             if (k == 0) {
                                 continue;
                             }
-                            if (j + k >= 0 && j + k < current_grid[i].size()) {
-                                if (current_grid[i][j + k] == next_state) {
-                                    count++;
-                                }
-                                neighbor_count++;
+                            if (i + k > 0 && i + k < current_grid.size());
+                            state_count[current_grid[i+k][j]]++;
+                            neighbor_count++;
+                        }
+                        for (int k = - radius; k<=radius;k++){
+                            if (k == 0) {
+                                continue;
+                            }
+                            if (j + k > 0 && j + k < current_grid.size())
+                            state_count[current_grid[i][j+k]]++;
+                            neighbor_count++;
+                        }
+                        int max_idx;
+                        int max_count = 0;
+                        for (int s = 0; s < nstates; s++) {
+                            if (state_count[s] > max_count) {
+                                max_count = state_count[s];
+                                max_idx = s;
                             }
                         }
-                        majority = (double) count/neighbor_count;
-                        if (rule == 1) {   // majority rule 
-                            if (majority >= 0.5) { // majority of neighbors are in state 1
-                                state++;
-                            }
+                        majority = (double) max_count/neighbor_count;
+                        if (majority >= 0.5) { 
+                            next_grid[i][j] = max_idx;
                         }
                     }
-                    next_grid[i][j] = state;
+                    delete [] state_count;
                 }
             }
             current_grid = next_grid;
+            next_grid = current_grid;
         } else if (bound_type == 3) { // cut-off boundary
             for (int i = 0; i < current_grid.size(); i++) {
                 for (int j = 0; j < current_grid[i].size(); j++) {
                     
-                    state = current_grid[i][j];
-                    if (state == nstates) {
-                        state = 0;
-                    } else if (state != nstates) {
-                        for (int k = - radius; k<=radius;k++){
-                            if (k == 0) {
-                                continue;
-                            }
-                            if (i + k >= 0 && i + k <= current_grid.size()) {
-                                if (current_grid[i + k][j] == next_state) {
-                                    count++;
-                                }
-                                neighbor_count++;
-                            }
+                    if (rule == 1) {    //majority rule 
+                        for(int s = 0; s < nstates; s++) {  // initialize state_count
+                        state_count[s] = 0;
                         }
                         for (int k = - radius; k<=radius;k++){
                             if (k == 0) {
                                 continue;
                             }
-                            if (j + k >= 0 && j + k <= current_grid[i].size()) {
-                                if (current_grid[i][j + k] == next_state) {
-                                    count++;
-                                }
-                                neighbor_count++;
+                            if (i + k >= 0 && i + k <= current_grid.size());
+                            state_count[current_grid[i+k][j]]++;
+                            neighbor_count++;
+                        }
+                        for (int k = - radius; k<=radius;k++){
+                            if (k == 0) {
+                                continue;
+                            }
+                            if (j + k >= 0 && j + k <= current_grid.size())
+                            state_count[current_grid[i][j+k]]++;
+                            neighbor_count++;
+                        }
+                        int max_idx;
+                        int max_count = 0;
+                        for (int s = 0; s < nstates; s++) {
+                            if (state_count[s] > max_count) {
+                                max_count = state_count[s];
+                                max_idx = s;
                             }
                         }
-                        majority = (double) count/neighbor_count;
-                        if (rule == 1) {   // majority rule 
-                            if (majority >= 0.5) { // majority of neighbors are in state 1
-                                state++;
-                            }
+                        majority = (double) max_count/neighbor_count;
+                        if (majority >= 0.5) { 
+                            next_grid[i][j] = max_idx;
                         }
                     }
-                    next_grid[i][j] = state;
+                    delete [] state_count;
                 }
             }
             current_grid = next_grid;
+            next_grid = current_grid;
         } else {
             return -2;   // Error: invalid boundary type
         }
     } else if (neigh_type == 2) {   // Moore neighborhood
         if (bound_type == 0) {   // No boundaries
-             for (int i = 0; i < current_grid.size(); i++) {
+              for (int i = 0; i < current_grid.size(); i++) {
                 for (int j = 0; j < current_grid[i].size(); j++) {
-                    int neighbor_count = 0;
-                    int *state_count = new int[nstates];
-                    for(int s = 0; s < nstates; s++) {
-                        state_count[s] = 0;
-                    }
+                  int neighbor_count = 0;
+                  int *state_count = new int[nstates];
+                  for(int s = 0; s < nstates; s++) {
+                    state_count[s] = 0;
+                  }
                     for (int k = -radius; k <= radius; k++) {
                         for (int l = -radius; l <= radius; l++) {
                             state_count[current_grid[(i + k + current_grid.size()) % current_grid.size()][(j + l + current_grid[i].size()) % current_grid[i].size()]]++;
@@ -204,124 +213,127 @@ int CellularAutomata::step(){
                         }
                     }
                     if (rule == 1) {   // majority rule
-                        majority = (double) state_count[1]/neighbor_count;
-                        if (majority >= 0.5) { // majority of neighbors are in state 1
-                            next_grid[i][j] = 1;
+                        int max_idx;
+                        int max_count = 0;
+                        for (int s = 0; s < nstates; s++) {
+                            if (state_count[s] > max_count) {
+                                max_count = state_count[s];
+                                max_idx = s;
+                            }
+                        }
+                        majority = (double) max_count/neighbor_count;
+                        if (majority >= 0.5) { 
+                            next_grid[i][j] = max_idx;
                         }
                     }
                     delete [] state_count;
                 }
             }
-            // older version
-            // for (int i = 0; i < current_grid.size(); i++) {
-            //     for (int j = 0; j < current_grid[i].size(); j++) {
-            //         state = current_grid[i][j];
-            //         if (state == nstates) {
-            //             state = 0;
-            //         } else if (state != nstates) {
-            //             for (int k = -radius; k <= radius; k++) {
-            //                 for (int l = -radius; l <= radius; l++) {
-            //                     if (current_grid[(i + k + current_grid.size()) % current_grid.size()][(j + l + current_grid[i].size()) % current_grid[i].size()] == next_state) {
-            //                         count++;
-            //                     }
-            //                     neighbor_count++;  
-            //                 }
-            //             }
-            //             majority = (double) count/neighbor_count;
-            //                 if (rule == 1) {   // majority rule 
-            //                     if (majority >= 0.5) { // majority of neighbors are in state 1
-            //                         state++;
-            //                     }
-            //                 }
-            //         }
-            //         next_grid[i][j] = state;
-            //     }
-            // }
-            // current_grid = next_grid;
+            current_grid = next_grid;
+            next_grid = current_grid; 
         } else if (bound_type == 1) {   // periodic boundary
-            for (int i = 0; i < current_grid.size(); i++) {
+             for (int i = 0; i < current_grid.size(); i++) {
                 for (int j = 0; j < current_grid[i].size(); j++) {
-                    state = current_grid[i][j];
-                    if (state == nstates) {
-                        state = 0;
-                    } else if (state != nstates) {
-                        for (int k = -radius; k <= radius; k++) {
-                            for (int l = -radius; l <= radius; l++) {
-                                if (current_grid[(i + k + current_grid.size()) % current_grid.size()][(j + l + current_grid[i].size()) % current_grid[i].size()] == next_state) {
-                                    count++;
-                                }
-                                neighbor_count++;  
+                  int neighbor_count = 0;
+                  int *state_count = new int[nstates];
+                  for(int s = 0; s < nstates; s++) {
+                    state_count[s] = 0;
+                  }
+                    for (int k = -radius; k <= radius; k++) {
+                        for (int l = -radius; l <= radius; l++) {
+                            state_count[current_grid[(i + k + current_grid.size()) % current_grid.size()][(j + l + current_grid[i].size()) % current_grid[i].size()]]++;
+                            neighbor_count++;
+                        }
+                    }
+                    if (rule == 1) {   // majority rule
+                        int max_idx;
+                        int max_count = 0;
+                        for (int s = 0; s < nstates; s++) {
+                            if (state_count[s] > max_count) {
+                                max_count = state_count[s];
+                                max_idx = s;
                             }
                         }
-                        majority = (double) count/neighbor_count;
-                            if (rule == 1) {   // majority rule 
-                                if (majority >= 0.5) { // majority of neighbors are in state 1
-                                    state++;
-                                }
-                            }
+                        majority = (double) max_count/neighbor_count;
+                        if (majority >= 0.5) { 
+                            next_grid[i][j] = max_idx;
+                        }
                     }
-                    next_grid[i][j] = state;
+                    delete [] state_count;
                 }
             }
             current_grid = next_grid;
+            next_grid = current_grid;
         } else if (bound_type == 2) {   // fixed boundary
             for (int i = 1; i < current_grid.size(); i++) {
                 for (int j = 1; j < current_grid[i].size(); j++) {
-                    state = current_grid[i][j];
-                    if (state == nstates) {
-                        state = 0;
-                    } else if (state != nstates) {
-            
-                        for (int k = -radius; k <= radius; k++) {
-                            for (int l = -radius; l <= radius; l++) {
-                                if (i + k >= 0 && i + k < current_grid.size() && j + l >= 0 && j + l < current_grid[i].size()) {
-                                    if (current_grid[i + k][j + l] == next_state) {
-                                        count++;
-                                    }
-                                    neighbor_count++;
-                                }
+                  int neighbor_count = 0;
+                  int *state_count = new int[nstates];
+                  for(int s = 0; s < nstates; s++) {
+                    state_count[s] = 0;
+                  }
+                    for (int k = -radius; k <= radius; k++) {
+                        for (int l = -radius; l <= radius; l++) {
+                            if (i + k >= 1 && i + k < current_grid.size() && j + l >= 1 && j + l < current_grid[i].size()) {
+                                state_count[current_grid[i + k][j + l]]++;
+                                neighbor_count++;
                             }
                         }
-                        majority = (double) count/neighbor_count;
-                            if (rule == 1) {   // majority rule 
-                                if (majority >= 0.5) { // majority of neighbors are in state 1
-                                    state++;
-                                }
-                            }
                     }
-                    next_grid[i][j] = state;
+                    if (rule == 1) {   // majority rule
+                        int max_idx;
+                        int max_count = 0;
+                        for (int s = 0; s < nstates; s++) {
+                            if (state_count[s] > max_count) {
+                                max_count = state_count[s];
+                                max_idx = s;
+                            }
+                        }
+                        majority = (double) max_count/neighbor_count;
+                        if (majority >= 0.5) { 
+                            next_grid[i][j] = max_idx;
+                        }
+                    }
+                    delete [] state_count;
                 }
             }
             current_grid = next_grid;
+            next_grid = current_grid; 
         } else if (bound_type == 3) { //cut-off boundary 
             for (int i = 0; i < current_grid.size(); i++) {
                 for (int j = 0; j < current_grid[i].size(); j++) {
-                    state = current_grid[i][j];
-                    if (state == nstates) {
-                        state = 0;
-                    } else if (state != nstates) {
-            
-                        for (int k = -radius; k <= radius; k++) {
-                            for (int l = -radius; l <= radius; l++) {
-                                if (i + k >= 0 && i + k <= current_grid.size() && j + l >= 0 && j + l <= current_grid[i].size()) {
-                                    if (current_grid[i + k][j + l] == next_state) {
-                                        count++;
-                                    }
-                                    neighbor_count++;
-                                }
+                  int neighbor_count = 0;
+                  int *state_count = new int[nstates];
+                  for(int s = 0; s < nstates; s++) {
+                    state_count[s] = 0;
+                  }
+                    for (int k = -radius; k <= radius; k++) {
+                        for (int l = -radius; l <= radius; l++) {
+                            if (i + k >= 0 && i + k <= current_grid.size() && j + l >= 0 && j + l <= current_grid[i].size()) {
+                                state_count[current_grid[i + k][j + l]]++;
+                                neighbor_count++;
                             }
                         }
-                        majority = (double) count/neighbor_count;
-                            if (rule == 1) {   // majority rule 
-                                if (majority >= 0.5) { // majority of neighbors are in state 1
-                                    state++;
-                                }
-                            }
                     }
-                    next_grid[i][j] = state;
+                    if (rule == 1) {   // majority rule
+                        int max_idx;
+                        int max_count = 0;
+                        for (int s = 0; s < nstates; s++) {
+                            if (state_count[s] > max_count) {
+                                max_count = state_count[s];
+                                max_idx = s;
+                            }
+                        }
+                        majority = (double) max_count/neighbor_count;
+                        if (majority >= 0.5) { 
+                            next_grid[i][j] = max_idx;
+                        }
+                    }
+                    delete [] state_count;
                 }
             }
             current_grid = next_grid;
+            next_grid = current_grid; 
         } else {
             return -2;   // Error: invalid boundary type
         }
