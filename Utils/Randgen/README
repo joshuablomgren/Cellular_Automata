@@ -1,0 +1,16 @@
+# Final Project: Cellular Automata Library
+## University of California, Berkeley
+## Chem 274B: Introduction to Software Engineering
+#
+## Creator: Charis Liao, Joshua Blomgren, Jeffy Jeffy
+## Date Created: December 2022
+## Directory Path: the-golden-gopher/Utils/Randgen
+
+This subdirectory contains the C++ implementation of the random seed generator. The random seed generator is written in C++ and is designed to be used with the CA model library located in the Source/ directory.
+
+Files: 
+- README: This file which contains a general description of Randgen directory
+
+- Makefile: Automation script for compiling the random seed generating file, and cleaning all the files made by the Makefile
+
+- randseed.cpp: This is the source code for the random seed generator

@@ -1,0 +1,15 @@
+# Final Project: Cellular Automata Library
+## University of California, Berkeley
+## Chem 274B: Introduction to Software Engineering
+#
+## Creator: Charis Liao, Joshua Blomgren, Jeffy Jeffy
+## Date Created: December 2022
+## Directory Path: the-golden-gopher/Bindir
+
+This directory contains all executable files compiled by the Makefiles in this project.
+There is no Makefile in this directory because nothing is built here.
+
+C++ Programs under the Examples and Tests subdirectories will create executable files that
+are stored in this directory.
+
+To run them, type `./<executable file name>` in the terminal such as `./sample_test`.

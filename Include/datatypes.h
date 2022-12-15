@@ -10,8 +10,6 @@
                 // during compilation
 
 #include <vector>       // use the STL vector class for the grids
-#include <ctime>        // this program calls time() to initialize
-                        // the seed of the C++/C random number generator
 #include <string>       // use the STL string class for filenames
 #include <fstream>     // use the STL file class for output files
 #include <iostream>    // use the STL input/output class for printing

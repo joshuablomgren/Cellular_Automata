@@ -17,13 +17,18 @@
 CA_MODEL_DIR = Source/CA_Model
 TST_DIR = Tests
 EXM_DIR = Examples
+UTILS_DIR = Utils
 
 all: 
+	cd $(UTILS_DIR); make all
 	cd $(CA_MODEL_DIR); make all
 	cd $(TST_DIR); make all
 	cd $(EXM_DIR); make all
+	
 
 cleanall:
+	cd $(UTILS_DIR); make cleanall
 	cd $(CA_MODEL_DIR); make cleanall
 	cd $(TST_DIR); make cleanall
-	cd $(EXM_DIR); make cleanallgi
+	cd $(EXM_DIR); make cleanall
+	
