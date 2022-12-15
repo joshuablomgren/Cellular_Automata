@@ -8,6 +8,8 @@
 //  datatypes.h  Contains the C++ Class definitions for the
 //               Cellular Automata Model
 #include "datatypes.h"
+// random.h  Contains the API for the random seed generator
+#include "random.h"
 
 // Function: CellularAutomata::CellularAutomata() default constructor
 //           Initializes the class variables to default values
@@ -129,6 +131,8 @@ int CellularAutomata::setup_cell_states(int num_states){
 //         -5: fail (no grid is set up, call setup_dimension() first)
 //         -10: fail (simulation is already running, cannot change initial condition)
 int CellularAutomata::init_cond(int x_state, double prob){
+    int err;  // error code
+    
     if (run_flag == true) {
         return -10;   // Error: simulation is already running, cannot change initial condition
     }
@@ -141,7 +145,9 @@ int CellularAutomata::init_cond(int x_state, double prob){
     if (prob < 0 || prob > 1) {
         return -2;   // Error: invalid probability
     }
-    srand(time(NULL));   // force a different seed for each run
+    err = set_rseed(2);  // use a different seed for each run 
+    if (err != 0) return err;  // error: cannot set random seed
+
     for (int i = 0; i < current_grid.size(); i++) {
         for (int j = 0; j < current_grid[i].size(); j++) {
             if (((double) rand() / RAND_MAX) < prob) {    // generate random number between 0 and 1
@@ -167,6 +173,8 @@ int CellularAutomata::init_cond(int x_state, double prob){
 //         -5: fail (no grid is set up, call setup_dimension() first)
 //         -10: fail (simulation is already running, cannot change initial condition)
 int CellularAutomata::init_cond_rewrite(int x_state, int y_state, double prob){
+    int err;  // error code
+
     if (run_flag == true) {
         return -10;   // Error: simulation is already running, cannot change initial condition
     }
@@ -182,7 +190,9 @@ int CellularAutomata::init_cond_rewrite(int x_state, int y_state, double prob){
     if (prob < 0 || prob > 1) {
         return -2;   // Error: invalid probability
     }
-    srand(time(NULL));   // force a different seed for each run 
+    err = set_rseed(2);  // use a different seed for each run 
+    if (err != 0) return err;  // error: cannot set random seed
+
     for (int i = 0; i < current_grid.size(); i++) {
         for (int j = 0; j < current_grid[i].size(); j++) {
             if (current_grid[i][j] == (x_state - 1)) {

@@ -12,7 +12,8 @@
 CA_MODEL = ./CA_model
 
 
-# The target will compile the source code for both the data structures and the sorting algorithms 
+# The target will compile the source code for the cellular automata model class
+# The object files will be located in the Libdir subdirectory 
 all: 
 	cd $(CA_MODEL); make all
 	

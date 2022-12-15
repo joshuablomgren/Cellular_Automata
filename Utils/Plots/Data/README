@@ -1,0 +1,11 @@
+# Final Project: Cellular Automata Library
+## University of California, Berkeley
+## Chem 274B: Introduction to Software Engineering
+#
+## Creator: Charis Liao, Jeffy Jeffy, Joshua Blomgren
+## Date Created: December 2022
+## Directory Path: the-golden-gopher/Utils/Plots/Data
+
+This subdirectory contains the data files that are used by 
+the jupyter notebook and python code for visualizing the 
+Cellular Automata model located in the ../Plots subdirectory.

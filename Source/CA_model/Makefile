@@ -21,25 +21,29 @@ INC_DIR = ../../Include
 # The directory where all object files are going to moved afer creation
 LIB_DIR     = ../../Libdir
 
-# The next line contains the list of math object files created by this Makefile.
-# they are the targets this makefile builds
-CA_MODEL = ca_model.o
+# The next line contains the list of object files created by this Makefile.
+CA_MODEL_OBJS = ca_model_setup.o ca_model_steps.o ca_model_vis.o
 
-#The object file for insertion sort. The file is saved in Libdir.
+CA_MODEL_LIB = libca_model.a
+
+libca_model.a: $(CA_MODEL_OBJS)
+# create a library file from the object files
+	ar ru $(CA_MODEL_LIB) $(CA_MODEL_OBJS)
+# check the library
+	ranlib $(CA_MODEL_LIB)
+	mv $(CA_MODEL_LIB) $(LIB_DIR)/.
+	rm $(CA_MODEL_OBJS)
+
 ca_model_setup.o:  $(INC_DIR)/datatypes.h
 	$(CPP) $(CPPFLAGS) ca_model_setup.cpp -I$(INC_DIR) 
-	mv ca_model.o $(LIB_DIR)
 
 ca_model_steps.o:  $(INC_DIR)/datatypes.h
 	$(CPP) $(CPPFLAGS) ca_model_steps.cpp -I$(INC_DIR) 
-	mv ca_model.o $(LIB_DIR)
 
 ca_model_vis.o:  $(INC_DIR)/datatypes.h
 	$(CPP) $(CPPFLAGS) ca_model_vis.cpp -I$(INC_DIR) 
-	mv ca_model.o $(LIB_DIR)
 
-all: 
-	$(MAKE) $(CA_MODEL)
+all: $(CA_MODEL_LIB)
 
 cleanall: 
-	cd $(LIB_DIR); rm -f $(CA_MODEL)
+	cd $(LIB_DIR); rm $(CA_MODEL_LIB)

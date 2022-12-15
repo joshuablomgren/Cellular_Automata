@@ -6,4 +6,15 @@
 ## Date Created: December 2022
 ## Directory Path: the-golden-gopher/Utils
 
-This directory 
+This directory contains the files for utilities for the CA model library. This includes the jupyter notebook for visualizing the Cellular Automata model. 
+
+Files: 
+- README: This file which contains a general description of this subdirectory
+
+- Makefile: Automation script for compiling the random seed generating file, and cleaning all the files made by the Makefile
+
+
+Subdirectories:
+- Plots: This subdirectory contains the jupyter notebook for visualizing the CA model
+
+- Random: This subdirectory contains the source code for the random seed generator

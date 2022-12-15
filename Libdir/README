@@ -1,0 +1,13 @@
+# Final Project: Cellular Automata Library
+## University of California, Berkeley
+## Chem 274B: Introduction to Software Engineering
+#
+## Creator: Joshua Blomgren, Charis Liao, Jeffy Jeffy
+## Date Created: December 2022
+## Directory Path: the-golden-gopher/Libdir
+
+This directory contains object code files and libraries for the CA model library. 
+There is no Makefile in this directory because nothing is built here.
+
+C++ programs under the ../Source and ../Utils subdirectories will create object code files that
+are stored in this directory.

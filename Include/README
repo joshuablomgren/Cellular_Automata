@@ -1,0 +1,19 @@
+# Final Project: Cellular Automata Library
+## University of California, Berkeley
+## Chem 274B: Introduction to Software Engineering
+#
+## Creator: Charis Liao, Joshua Blomgren, Jeffy Jeffy
+## Date Created: December 2022
+## Directory Path: the-golden-gopher/Include
+
+This directory contains the header files for the CA model library and random seed generator needed
+to build the executable files and libraries. 
+
+Files:
+- README: This file which contains a general description of this subdirectory
+
+- There is no Makefile in this directory because nothing is built here.
+
+- datatypes.h: API to the CA model class declarations. This CA model class is the main class for the CA model library. It contains the functions for initializing the CA model, running the CA model, and visualizing the CA model.
+
+- random.h: API to the random seed generator class declarations.
