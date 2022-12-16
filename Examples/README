@@ -1,0 +1,23 @@
+# Final Project: Cellular Automata Library
+## University of California, Berkeley
+## Chem 274B: Introduction to Software Engineering
+#
+## Creator: Charis Liao, Joshua Blomgren, Jeffy Jeffy
+## Date Created: December 2022
+## Directory Path: the-golden-gopher/Example 
+
+
+This directory contains a real-world example model that our team came up with that our software library can be applied to. All application code is saved in `battery_cell.cpp`  
+
+Files:
+- README: This file which contains a general description of this subdirectory
+
+- Makefile: Automation script for compiling the library and examples, and cleaning all the subdirectories
+
+- battery_cell.cpp: This file contains implementation of the batter model that we came up with. 
+
+# Futher Discussion and Explanation on our battery model. 
+
+There are multiple user options provided in our software library such as users can specify boundary rule, neighborhoods, and the initial conditions for the cellular automata. In terms of rules, our code implements Majority Rule for the automata to advance over time. The cell will converge to the state of it's surrounding cells if majority of the cells are in the same state.     
+
+The set up of our library is perfact for a model such as electric car batteries. When the battaries are charged, not all the cells would be charged with highest energy. Instead, some cells will be charge to a higher state and the energy would spread to other cells. Eventually, all cells will converge to the same state.
