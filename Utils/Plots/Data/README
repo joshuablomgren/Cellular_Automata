@@ -9,3 +9,7 @@
 This subdirectory contains the data files that are used by 
 the jupyter notebook and python code for visualizing the 
 Cellular Automata model located in the ../Plots subdirectory.
+
+Files:
+- battery_model.txt: text file containing the output of the battery model 
+- test.txt: text file containing the output of the sample unit test

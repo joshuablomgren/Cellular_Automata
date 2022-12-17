@@ -100,7 +100,9 @@ int main(void) {
 
     // run the simulation for 10 time steps and print the grid to the screen after each time step
     // the resulting grid will be saved to the file "battery_model.txt"
-    err = Battery.run_sim(15,false, true, "battery_model.txt");
+    // 15 is the number of times this simulation was run but the value may change based on 
+    // how long the battery is being used
+    err = Battery.run_sim(15,false, true, "battery_model.txt"); 
     if (err == -1){
         cout << "Error: Invalid number of time steps" << endl;
         return -1;

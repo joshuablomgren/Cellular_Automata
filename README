@@ -53,6 +53,9 @@ To clean the directory, run the following command in the root directory:
 make cleanall
 ```
 
+### Instructions:
+- To use the library in your own model, utilize the instructions provided in the Examples/README.md file. 
+
 ## Updates:
 - 12/1/2022: Initial commit of the project
 - 12/6/2022: Added the CellularAutomata class in the Include/datatypes.h 
@@ -61,3 +64,6 @@ make cleanall
 - 12/9/2022: Added the visualization methods for CellularAutomata in the Source/CA_model/
 - 12/12/2022: Added the jupyter notebook for visualizing the results of the CA model in the Utils/Plots/
 - 12/13/2022: Separated the setup, step, and visualization methods into separate files in the Source/CA_model/
+- 12/14/2022: Added the unit tests for the CellularAutomata class in the Tests/ directory
+- 12/15/2022: Added the example model that uses the CA library in the Examples/ directory
+- 12/16/2022: Added the Makefile for compiling the library and example model

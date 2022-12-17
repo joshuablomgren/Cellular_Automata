@@ -11,9 +11,7 @@ This subdirectory contains the jupyter notebook for visualizing the Cellular Aut
 Files:
 - README: This file which contains a general description of this subdirectory
 
-- visualization.ipynb: This is the jupyter notebook for visualizing the Cellular Automata model
-
-- visualization.py: This is the python script for generating the plots
+- visualization.ipynb: This is the jupyter notebook for visualizing the Cellular Automata models
 
 
 Subdirectories:

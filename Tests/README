@@ -25,3 +25,8 @@ Files:
     - init_cond_test.cpp: This is a test file that tests the functionality of the init_cond method that 
     initializes the initial conditions of the CA model as well as the init_cond_rewrite method that
     initializes another condition of the CA model 
+
+## Instructions: 
+- To run the sample test use the command: `make sample_test` in the Tests/ directory
+- To run the input values test use the command: `make input_values_test` in the Tests/ directory
+- To run the init cond test use the command: `make init_cond_test` in the Tests/ directory

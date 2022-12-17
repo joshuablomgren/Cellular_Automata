@@ -11,3 +11,7 @@ There is no Makefile in this directory because nothing is built here.
 
 C++ programs under the ../Source and ../Utils subdirectories will create object code files that
 are stored in this directory.
+
+Files:
+- CA_model.o: object code file for the CA model library
+- randseed.o : object code file for the random number generator

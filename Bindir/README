@@ -7,9 +7,27 @@
 ## Directory Path: the-golden-gopher/Bindir
 
 This directory contains all executable files compiled by the Makefiles in this project.
-There is no Makefile in this directory because nothing is built here.
 
-C++ Programs under the Examples and Tests subdirectories will create executable files that
-are stored in this directory.
+C++ Programs under the Examples and Tests subdirectories will create executable files that are stored in this directory.
 
-To run them, type `./<executable file name>` in the terminal such as `./sample_test`.
+To run them, navigate to this directory and run the corresponding Makefile commands. The following commands are available:
+- make all: compiles all the executable files
+- make clean: removes all the executable files
+- make battery_model : compiles the executable file for the battery model example
+- make sample_test: compiles the sample unit test
+- make init_cond_test: compiles the unit test for the initialization conditions
+- make input_values_test: compiles the unit test for the input values
+
+Files: 
+- battery_model: executable file for the battery model example
+- init_cond_test: executable file for the unit test for the initialization conditions
+- input_values_test: executable file for the unit test for the input values
+- sample_test: executable file for the sample unit test
+
+--------------------------------------------------------
+To run your own executable file, follow the following steps:
+1. Replace the makefile target with the name of your executable file. For instance `battery_model: battery_model` becomes `my_executable: my_executable`. The command to compile your executable file is now `./my_executable`. This will allow to use the makefile commands to compile and run your executable file.
+2. Add the name of your executable file to the list of files to be cleaned
+3. Add the name of your executable file to the list of files to be compiled
+4. Move the text file containing the output of your program to the Utils/Plots/Data directory
+using the command `mv <filename> ../Utils/Plots/Data/` 

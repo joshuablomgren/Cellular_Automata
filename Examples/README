@@ -21,3 +21,40 @@ Files:
 There are multiple user options provided in our software library such as users can specify boundary rule, neighborhoods, and the initial conditions for the cellular automata. In terms of rules, our code implements Majority Rule for the automata to advance over time. The cell will converge to the state of it's surrounding cells if majority of the cells are in the same state.     
 
 The set up of our library is perfact for a model such as electric car batteries. When the battaries are charged, not all the cells would be charged with highest energy. Instead, some cells will be charge to a higher state and the energy would spread to other cells. Eventually, all cells will converge to the same state.
+
+This file contains the application for battery cell using the Battery model.
+The general idea is to simulate a battery clusters in electric cars where only certain 
+batteries are of higher energy. The goal is to see how the battery clusters will evolve
+over time and reach an equilibrium state. In this example, we will use a 2D grid with
+3 states: 0, 1, and 2. 0 represents a 1V, 1 represents a 2V, and
+2 represents a battery at 3V. The rules are as follows:
+1. If a cell has 3 or more neighbors with state 2, it will become a state 2 cell
+2. If a cell has 3 or more neighbors with state 1, it will become a state 1 cell
+3. If a cell has 3 or more neighbors with state 0, it will become a state 0 cell
+It is important to note that the rules are applied simultaneously to all cells in the grid.
+This means that the state of a cell in the next time step is determined by the states of
+all the cells in the current time step. 
+Additionally, the grid is periodic, meaning that the cells on the edges of the grid are
+neighbors with the cells on the opposite edges of the grid.
+As majority rule is being implemented, each state has a probability associated with it 
+of becoming the next state, this allows to randomly place initial conditions in the grid.
+The simulation was performed 15 times, but can be run for longer if desired.
+------------------------------------------------------------------------
+
+To run the example model, run the following command:
+```make battery_model```
+This will create an executable file called battery_model in the Bindir/ subdirectory. 
+
+------------------------------------------------------------------------
+To create cellular automata model, run the following command:
+1. Identify the dimensions of the problem and use `setup_dimensions(ndim, dim1, dim2)` to set up the dimensions of the problem.
+2. Identify the type of neighborhood and use `setup_neighborhood(neighborhood)` to set up the neighborhood of the problem. Here, 1 represents Von Neumann neighborhood and 2 represents Moore neighborhood.
+3. Identify the type of boundary rule and use `setup_boundary_rule(boundary_rule)` to set up the boundary rule of the problem. Here, 0 represents no boundary rule and 1 represents periodic boundary rule, 2 represents fixed boundary rule, and 3 represents cutoff boundary rule. 
+4. Identify the total number of cell states and use `setup_cell_states(num_states)` to set up the total number of cell states of the problem.
+5. Identify the setup rule and use `setup_rule(rule)` to set up the rule of the problem. Here, 0 represents majority rule. 
+6. Identify the initial conditions and use `setup_initial_conditions(state, prob)` to set up the initial conditions of the problem. Here, state represents the state of interest and the probability of this state randomly appearing in the grid.
+7. Use `init_cond_rewrite()` to rewrite the initial conditions of the problem and include additional states and probabilities.
+8. Use `run_sim(steps, print to screen, print to file, filename)` to run the simulation of the problem. This provides the number of steps to be taken in the simulation, whether to print the grid to the screen, whether to print the grid to a file, and the filename to print the grid to.
+9. Grids can be seprately printed using `print_grid(filename)` and `print_grid()` to print to the screen.
+10. Use `analyze_grid()` to analyze the grid and print the number of cells in each state.
+11. Create a make target by replacing the .cpp file name with the name of the model you want to create. For example, if you want to create a model called `battery_cell.cpp`, you would replace `test.cpp` with `battery_cell` in the makefile.

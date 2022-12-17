@@ -20,3 +20,7 @@ Files:
 
 Subdirectories:
     - CA_model: This subdirectory contains the source code for the CA model library.
+
+## Instructions: 
+- To compile the source code, run the following command in the Source/ directory:
+```make all```
