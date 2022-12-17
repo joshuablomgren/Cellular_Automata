@@ -205,8 +205,7 @@ int CellularAutomata::step(){
         if (bound_type == 0) {   // No boundaries
               for (int i = 0; i < current_grid.size(); i++) {
                 for (int j = 0; j < current_grid[i].size(); j++) {
-                  int neighbor_count = 0;
-                  int *state_count = new int[nstates];
+                  
                   for(int s = 0; s < nstates; s++) {
                     state_count[s] = 0;
                   }
@@ -239,8 +238,7 @@ int CellularAutomata::step(){
         } else if (bound_type == 1) {   // periodic boundary
              for (int i = 0; i < current_grid.size(); i++) {
                 for (int j = 0; j < current_grid[i].size(); j++) {
-                  int neighbor_count = 0;
-                  int *state_count = new int[nstates];
+                  
                   for(int s = 0; s < nstates; s++) {
                     state_count[s] = 0;
                   }
@@ -273,8 +271,7 @@ int CellularAutomata::step(){
         } else if (bound_type == 2) {   // fixed boundary
             for (int i = 1; i < current_grid.size(); i++) {
                 for (int j = 1; j < current_grid[i].size(); j++) {
-                  int neighbor_count = 0;
-                  int *state_count = new int[nstates];
+                  
                   for(int s = 0; s < nstates; s++) {
                     state_count[s] = 0;
                   }
@@ -309,8 +306,7 @@ int CellularAutomata::step(){
         } else if (bound_type == 3) { //cut-off boundary 
             for (int i = 0; i < current_grid.size(); i++) {
                 for (int j = 0; j < current_grid[i].size(); j++) {
-                  int neighbor_count = 0;
-                  int *state_count = new int[nstates];
+                  
                   for(int s = 0; s < nstates; s++) {
                     state_count[s] = 0;
                   }
