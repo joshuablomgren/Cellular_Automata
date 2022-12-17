@@ -14,7 +14,7 @@
 # The object files are found in the Libdir directory
 # The executables are found in the Execdir directory
 
-CA_MODEL_DIR = Source/CA_Model
+CA_MODEL_DIR = Source
 TST_DIR = Tests
 EXM_DIR = Examples
 UTILS_DIR = Utils
