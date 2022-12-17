@@ -62,9 +62,10 @@ int CellularAutomata::step(){
                             next_grid[i][j] = max_idx;
                         }
                     }
-                    delete [] state_count;
+                    
                 }
             }
+            delete [] state_count;
             current_grid = next_grid;
             next_grid = current_grid;
 
@@ -105,9 +106,10 @@ int CellularAutomata::step(){
                             next_grid[i][j] = max_idx;
                         }
                     }
-                    delete [] state_count;
+                    
                 }
             }
+            delete [] state_count;
             current_grid = next_grid;
             next_grid = current_grid;
         } else if (bound_type == 2) {   // fixed boundary
@@ -147,9 +149,10 @@ int CellularAutomata::step(){
                             next_grid[i][j] = max_idx;
                         }
                     }
-                    delete [] state_count;
+                    
                 }
             }
+            delete [] state_count;
             current_grid = next_grid;
             next_grid = current_grid;
         } else if (bound_type == 3) { // cut-off boundary
@@ -189,9 +192,10 @@ int CellularAutomata::step(){
                             next_grid[i][j] = max_idx;
                         }
                     }
-                    delete [] state_count;
+                    
                 }
             }
+            delete [] state_count;
             current_grid = next_grid;
             next_grid = current_grid;
         } else {
@@ -226,9 +230,10 @@ int CellularAutomata::step(){
                             next_grid[i][j] = max_idx;
                         }
                     }
-                    delete [] state_count;
+                    
                 }
             }
+            delete [] state_count;
             current_grid = next_grid;
             next_grid = current_grid; 
         } else if (bound_type == 1) {   // periodic boundary
@@ -259,9 +264,10 @@ int CellularAutomata::step(){
                             next_grid[i][j] = max_idx;
                         }
                     }
-                    delete [] state_count;
+                    
                 }
             }
+            delete [] state_count;
             current_grid = next_grid;
             next_grid = current_grid;
         } else if (bound_type == 2) {   // fixed boundary
@@ -294,9 +300,10 @@ int CellularAutomata::step(){
                             next_grid[i][j] = max_idx;
                         }
                     }
-                    delete [] state_count;
+                    
                 }
             }
+            delete [] state_count;
             current_grid = next_grid;
             next_grid = current_grid; 
         } else if (bound_type == 3) { //cut-off boundary 
@@ -329,9 +336,10 @@ int CellularAutomata::step(){
                             next_grid[i][j] = max_idx;
                         }
                     }
-                    delete [] state_count;
+                    
                 }
             }
+            delete [] state_count;
             current_grid = next_grid;
             next_grid = current_grid; 
         } else {
